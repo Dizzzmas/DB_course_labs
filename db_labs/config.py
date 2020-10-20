@@ -9,6 +9,7 @@ DEFAULT_DB_URL = "postgresql:///db_labs"
 
 class Config:
     """Base config."""
+
     API_TITLE = "db_labs"
     API_VERSION = "1.0.0"
     # load more config from secrets manager?

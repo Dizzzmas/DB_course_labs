@@ -1254,6 +1254,24 @@ python-versions = "*"
 smmap = ">=3.0.1"
 
 [[package]]
+name = "smorest-crud"
+version = "0.0.7"
+description = "Reusable CRUD endpoints using flask-smorest, flask-jwt-extended, and SQLAlchemy."
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.dependencies]
+flask = "*"
+flask-jwt-extended = "*"
+flask-smorest = "*"
+flask-sqlalchemy = "*"
+werkzeug = "*"
+
+[package.extras]
+doc = ["sphinx (!=3.0.2)", "sphinx-autodoc-typehints", "sphinx-rtd-theme", "recommonmark"]
+
+[[package]]
 name = "snowballstemmer"
 version = "2.0.0"
 description = "This package provides 26 stemmers for 25 languages generated from Snowball algorithms."
@@ -1462,7 +1480,7 @@ doc = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.0"
-content-hash = "88a35c6c2b9d27ebc35cd0d73981e938ea761cc743a097f804d093d5e1b9ed1d"
+content-hash = "f852918fca610ef06196208273a9cad142f7bf465fd0224511ba93433d84643c"
 
 [metadata.files]
 alembic = [
@@ -2003,6 +2021,9 @@ smmap = [
 smmap2 = [
     {file = "smmap2-3.0.1-py3-none-any.whl", hash = "sha256:0cb6ea470b1ad9a65a02ca7f4c7ae601861f7dd24a43812ca51cfca2892bb524"},
     {file = "smmap2-3.0.1.tar.gz", hash = "sha256:44cc8bdaf96442dbb9a8e2e14377d074b3d0eea292eee3c95c8c449b6c92c557"},
+]
+smorest-crud = [
+    {file = "smorest-crud-0.0.7.tar.gz", hash = "sha256:e7bf42236f085e0934dd70b3c6c1a2de5179260988a8981bfbd0c548fc2412f0"},
 ]
 snowballstemmer = [
     {file = "snowballstemmer-2.0.0-py2.py3-none-any.whl", hash = "sha256:209f257d7533fdb3cb73bdbd24f436239ca3b2fa67d56f6ff88e86be08cc5ef0"},

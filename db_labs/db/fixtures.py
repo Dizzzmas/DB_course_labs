@@ -30,7 +30,7 @@ def seed_db():
             f"with password '{DEFAULT_PASSWORD}'"
         )
 
-    VacancyFactory.create_batch(10) # Developers and skills will be created as well
+    VacancyFactory.create_batch(10)  # Developers and skills will be created as well
 
     db.session.commit()
     print("Database seeded.")

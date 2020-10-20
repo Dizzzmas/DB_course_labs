@@ -29,6 +29,7 @@ sqlalchemy-aurora-data-api = "^0.2.5"
 sqlalchemy = "*"
 python-dateutil = "==2.8.0"
 requests = "*"
+smorest-crud = "^0.0.7"
 
 [tool.poetry.dev-dependencies]
 bento-cli = "*"
