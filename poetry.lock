@@ -1462,7 +1462,7 @@ doc = []
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8.0"
-content-hash = "56a554fa848f4262625a5e1beb262d0f6cd2009b31bc2556f732180f0829d2b6"
+content-hash = "88a35c6c2b9d27ebc35cd0d73981e938ea761cc743a097f804d093d5e1b9ed1d"
 
 [metadata.files]
 alembic = [

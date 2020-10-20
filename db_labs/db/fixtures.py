@@ -2,6 +2,8 @@
 from faker import Factory as FakerFactory
 import factory
 import random
+
+from db_labs.model import Developer, Skill, Vacancy
 from db_labs.model.user import NormalUser, User
 from db_labs.db import db
 from jetkit.db import Session
@@ -27,6 +29,8 @@ def seed_db():
             f"Created default user with email {DEFAULT_NORMAL_USER_EMAIL} "
             f"with password '{DEFAULT_PASSWORD}'"
         )
+
+    VacancyFactory.create_batch(10) # Developers and skills will be created as well
 
     db.session.commit()
     print("Database seeded.")
@@ -57,3 +61,31 @@ class NormalUserFactory(UserFactoryFactory):
         model = NormalUser
 
     email = factory.Sequence(lambda n: f"normaluser.{n}@example.com")
+
+
+class SkillFactory(SQLAFactory):
+    class Meta:
+        model = Skill
+
+    name = factory.Sequence(lambda x: f"{x}-{faker.word()}")
+
+
+class DeveloperFactory(SQLAFactory):
+    class Meta:
+        model = Developer
+
+    first_name = factory.LazyFunction(faker.first_name)
+    last_name = factory.LazyFunction(faker.last_name)
+
+    email = factory.LazyFunction(faker.email)
+
+    skills = factory.List([factory.SubFactory(SkillFactory) for _ in range(2)])
+
+
+class VacancyFactory(SQLAFactory):
+    class Meta:
+        model = Vacancy
+
+    title = factory.Sequence(lambda x: f"{x}-{faker.word()}")
+
+    developers = factory.List([factory.SubFactory(DeveloperFactory) for _ in range(5)])

@@ -4,8 +4,6 @@ Creates a new instance of our Flask app with plugins, blueprints, views, and con
 """
 import logging
 import os
-
-import sqlalchemy_aurora_data_api  # noqa: F401
 from aws_xray_sdk.core import patcher, xray_recorder
 from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
 from flask import jsonify
@@ -15,7 +13,6 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
 from nplusone.ext.flask_sqlalchemy import NPlusOne
 from typing import Optional
-
 from .api import api
 from .commands import init_cli
 from .db import db
