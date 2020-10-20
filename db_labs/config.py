@@ -3,16 +3,17 @@ from datetime import timedelta
 import logging
 
 CONFIG_EXPECTED_KEYS = ("SQLALCHEMY_DATABASE_URI", "OPENAPI_VERSION", "JWT_SECRET_KEY")
-# use local "TEMPLATE" DB for local dev
-DEFAULT_DB_URL = "postgresql:///TEMPLATE"
+# use local "db_labs" DB for local dev
+DEFAULT_DB_URL = "postgresql:///db_labs"
 
 
 class Config:
     """Base config."""
-
+    API_TITLE = "db_labs"
+    API_VERSION = "1.0.0"
     # load more config from secrets manager?
     LOAD_APP_SECRETS = os.getenv("LOAD_APP_SECRETS", False)
-    APP_SECRETS_NAME = os.getenv("APP_SECRETS_NAME", "TEMPLATE/dev")
+    APP_SECRETS_NAME = os.getenv("APP_SECRETS_NAME", "db_labs/dev")
     LOAD_RDS_SECRETS = os.getenv("LOAD_RDS_SECRETS", False)
     RDS_SECRETS_NAME = os.getenv("RDS_SECRETS_NAME")
 
@@ -77,7 +78,7 @@ class ProductionConfig(Config):
     """AWS production environment and DB."""
 
     # name of Secrets Manager secretID for config
-    APP_SECRETS_NAME = "TEMPLATE/prd"
+    APP_SECRETS_NAME = "db_labs/prd"
     LOAD_APP_SECRETS = False
     DEV_DB_SCRIPTS_ENABLED = False
 
@@ -118,7 +119,7 @@ def check_valid(conf) -> bool:
 
 def check_valid_handler(event, context):
     # which env are we checking?
-    config_class = event.get("env", "TEMPLATE.config.LocalDevConfig")
+    config_class = event.get("env", "db_labs.config.LocalDevConfig")
 
     # create an app with this config
     from .flask import App

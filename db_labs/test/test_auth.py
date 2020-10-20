@@ -1,4 +1,4 @@
-from TEMPLATE.db.fixtures import DEFAULT_PASSWORD
+from db_labs.db.fixtures import DEFAULT_PASSWORD
 
 
 def test_login(client_unauthenticated, user, db_session):

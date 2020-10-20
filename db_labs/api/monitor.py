@@ -2,7 +2,7 @@
 from flask_smorest import Blueprint
 from flask.views import MethodView
 from marshmallow import fields as f, Schema
-from TEMPLATE.db import db
+from db_labs.db import db
 
 blp = Blueprint("Monitoring", __name__, url_prefix="/api/monitoring")
 

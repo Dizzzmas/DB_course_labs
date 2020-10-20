@@ -26,7 +26,7 @@ log = logging.getLogger(__name__)
 
 
 def create_app(test_config: Optional[dict] = None) -> App:
-    app = App("TEMPLATE")
+    app = App("db_labs")
 
     # load config
     configure(app=app, test_config=test_config)
@@ -53,7 +53,7 @@ def init_auth(app: App) -> None:
 
     @jwt.user_loader_callback_loader
     def user_loader_callback(identity):
-        from TEMPLATE.model.user import User
+        from db_labs.model.user import User
 
         if identity is None:
             return None
@@ -122,7 +122,7 @@ def test_db(app: App) -> None:
 
 def configure_class(app: App) -> None:
     """Load class-based app configuration from config.py."""
-    config_class = os.getenv("TEMPLATE_CONFIG".upper())
+    config_class = os.getenv("db_labs_CONFIG".upper())
 
     if not config_class:
         # figure out which config to load
@@ -131,12 +131,12 @@ def configure_class(app: App) -> None:
         if stage:
             # running in AWS or sls wsgi serve
             if stage == "prd":
-                config_class = "TEMPLATE.config.ProductionConfig"
+                config_class = "db_labs.config.ProductionConfig"
             else:
-                config_class = "TEMPLATE.config.DevConfig"
+                config_class = "db_labs.config.DevConfig"
         else:
             # local dev
-            config_class = "TEMPLATE.config.LocalDevConfig"
+            config_class = "db_labs.config.LocalDevConfig"
 
     app.config.from_object(config_class)
 
@@ -185,5 +185,5 @@ def init_xray(app: App) -> None:
     if not app.config.get("XRAY"):
         return
     patcher.patch(("requests", "boto3"))  # xray tracing for external requests
-    xray_recorder.configure(service="TEMPLATE")
+    xray_recorder.configure(service="db_labs")
     XRayMiddleware(app, xray_recorder)

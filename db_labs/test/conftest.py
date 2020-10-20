@@ -3,10 +3,10 @@ import sqlalchemy as sa
 from faker import Faker
 import pytest
 
-from TEMPLATE.api import init_views
-from TEMPLATE.create_app import create_app
+from db_labs.api import init_views
+from db_labs.create_app import create_app
 from flask_jwt_extended import create_access_token
-from TEMPLATE.db.fixtures import NormalUserFactory
+from db_labs.db.fixtures import NormalUserFactory
 from pytest_factoryboy import register
 from pytest_postgresql.factories import DatabaseJanitor
 
@@ -17,7 +17,7 @@ LOCALE = "en_US"
 
 # Retrieve a database connection string from the environment
 # should be a DB that doesn't exist
-DB_CONN = os.getenv("SQLALCHEMY_DATABASE_URI", "postgresql:///TEMPLATE_test".lower())
+DB_CONN = os.getenv("SQLALCHEMY_DATABASE_URI", "postgresql:///db_labs_test".lower())
 DB_OPTS = sa.engine.url.make_url(DB_CONN).translate_connect_args()
 DB_VERSION = "11.5"
 
@@ -48,7 +48,7 @@ def app(database):
 @pytest.fixture(scope="session")
 def _db(app):
     """Provide the transactional fixtures with access to the database via a Flask-SQLAlchemy database connection."""
-    from TEMPLATE.db import db
+    from db_labs.db import db
 
     # create all tables for test DB
     db.create_all()

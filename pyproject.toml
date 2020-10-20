@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "TEMPLATE"
+name = "db_labs"
 version = "0.1.0"
 description = "Project description."
 authors = ["My Name <me@myself.com>"]

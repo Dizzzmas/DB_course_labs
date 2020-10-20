@@ -13,7 +13,7 @@ def drop_all_tables(app):
 def init_cli(app, manager):
     if app.debug:
         # seed
-        from TEMPLATE.db.fixtures import seed_db
+        from db_labs.db.fixtures import seed_db
 
         @app.cli.command("seed", help="Seed DB with test data")
         def seed_db_cmd():
@@ -53,7 +53,7 @@ def init_cli(app, manager):
 
 
 def init_handler(event, context):
-    from TEMPLATE.app import app
+    from db_labs.app import app
 
     if not app.config.get("DEV_DB_SCRIPTS_ENABLED"):
         raise Exception("DEV_DB_SCRIPTS_ENABLED is not enabled")
@@ -65,12 +65,12 @@ def init_handler(event, context):
 
 def seed_handler(event, context):
     """Lambda entry point."""
-    from TEMPLATE.app import app
+    from db_labs.app import app
 
     if not app.config.get("DEV_DB_SCRIPTS_ENABLED"):
         raise Exception("DEV_DB_SCRIPTS_ENABLED is not enabled")
 
-    from TEMPLATE.db.fixtures import seed_db
+    from db_labs.db.fixtures import seed_db
 
     with app.app_context():
         seed_db()
@@ -79,7 +79,7 @@ def seed_handler(event, context):
 
 
 def migrate_handler(event, context):
-    from TEMPLATE.app import app
+    from db_labs.app import app
 
     with app.app_context():
         flask_migrate.upgrade()

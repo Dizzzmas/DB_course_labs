@@ -22,4 +22,4 @@ help:
 
 apidoc:
 	rm -rf source
-	sphinx-apidoc ../TEMPLATE -f -o source
+	sphinx-apidoc ../db_labs -f -o source

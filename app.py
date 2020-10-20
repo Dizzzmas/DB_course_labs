@@ -1,3 +1,3 @@
-from TEMPLATE.app import app
+from db_labs.app import app
 
 __all__ = ("app",)

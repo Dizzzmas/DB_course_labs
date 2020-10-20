@@ -1,5 +1,5 @@
-from TEMPLATE.create_app import create_app
-from TEMPLATE.config import check_valid
+from db_labs.create_app import create_app
+from db_labs.config import check_valid
 
 
 def test_config():

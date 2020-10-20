@@ -1,5 +1,5 @@
-service: TEMPLATE
-# app: TEMPLATE
+service: db_labs
+# app: db_labs
 # org: myorg
 
 plugins:
@@ -11,7 +11,7 @@ custom:
   stackName: ${self:service}-${self:provider.stage}
   xray: ''  # AWS Xray tracing of requests, queries. Set to 'Active' to actively trace.
   db:
-    dbname: TEMPLATE
+    dbname: db_labs
     minCapacity: 2
     maxCapacity: 4
     secondsUntilAutoPause: 7200  # if not stage=='prd'
@@ -149,7 +149,7 @@ package:
   exclude:
     - node_modules/**
     - venv/**
-    - TEMPLATE/instance.cfg
+    - db_labs/instance.cfg
     - instance.cfg
     - doc/**
     - "**/__pycache__/**"
@@ -169,19 +169,19 @@ functions:
     vpc: ${self:custom.vpc}
 
   seed:
-    handler: TEMPLATE.commands.seed_handler
+    handler: db_labs.commands.seed_handler
     layers: ${self:custom.layers.default}
     timeout: 120
     vpc: ${self:custom.vpc}
 
   initDb:
-    handler: TEMPLATE.commands.init_handler
+    handler: db_labs.commands.init_handler
     layers: ${self:custom.layers.default}
     timeout: 300
     vpc: ${self:custom.vpc}
 
   migrate:
-    handler: TEMPLATE.commands.migrate_handler
+    handler: db_labs.commands.migrate_handler
     timeout: 900
     layers: ${self:custom.layers.default}
     vpc: ${self:custom.vpc}

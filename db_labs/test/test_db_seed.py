@@ -1,7 +1,7 @@
-from TEMPLATE.commands import drop_all_tables
+from db_labs.commands import drop_all_tables
 import flask_migrate
-from TEMPLATE.db.fixtures import seed_db
-from TEMPLATE.db import db
+from db_labs.db.fixtures import seed_db
+from db_labs.db import db
 
 
 def test_db_init_seed(app):

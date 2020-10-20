@@ -38,8 +38,8 @@ doc:
 idb: dropcreatedb migrate seed
 
 dropcreatedb:
-	dropdb TEMPLATE --if-exists
-	createdb TEMPLATE
+	dropdb db_labs --if-exists
+	createdb db_labs
 
 migrate:
 	flask db upgrade

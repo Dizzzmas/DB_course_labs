@@ -60,7 +60,7 @@ sls wsgi serve  # run flask dev server under serverless
 ### Database:
 Using Postgresql.
 ```
-createdb TEMPLATE  # create DB
+createdb db_labs  # create DB
 flask db upgrade  # run migrations
 flask seed  # populate with sample data
 flask db migrate  # generate new migration

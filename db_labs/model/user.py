@@ -5,7 +5,7 @@ from jetkit.db.extid import ExtID
 from jetkit.model.user import CoreUser
 from typing import Any, Mapping
 
-from TEMPLATE.db import db
+from db_labs.db import db
 
 
 @unique

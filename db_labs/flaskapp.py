@@ -2,7 +2,7 @@
 
 from flask import Flask
 from flask.config import Config
-from TEMPLATE.config import ConfigurationValueMissingError
+from db_labs.config import ConfigurationValueMissingError
 
 
 class App(Flask):

@@ -2,8 +2,8 @@
 from faker import Factory as FakerFactory
 import factory
 import random
-from TEMPLATE.model.user import NormalUser, User
-from TEMPLATE.db import db
+from db_labs.model.user import NormalUser, User
+from db_labs.db import db
 from jetkit.db import Session
 
 faker: FakerFactory = FakerFactory.create()
