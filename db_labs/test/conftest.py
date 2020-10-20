@@ -6,11 +6,12 @@ import pytest
 from db_labs.api import init_views
 from db_labs.create_app import create_app
 from flask_jwt_extended import create_access_token
-from db_labs.db.fixtures import NormalUserFactory
+from db_labs.db.fixtures import NormalUserFactory, DeveloperFactory
 from pytest_factoryboy import register
 from pytest_postgresql.factories import DatabaseJanitor
 
 register(NormalUserFactory)
+register(DeveloperFactory)
 
 # for faker
 LOCALE = "en_US"
