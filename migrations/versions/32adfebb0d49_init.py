@@ -1,8 +1,8 @@
-"""empty message
+"""Migration with the initial DB schema: Developer, Skill, Vacancy and DeveloperSkill models
 
-Revision ID: bfc9b22c58c4
+Revision ID: 32adfebb0d49
 Revises: e1e763cb595b
-Create Date: 2020-10-20 21:25:02.129485
+Create Date: 2020-10-20 21:42:56.096901
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bfc9b22c58c4'
+revision = '32adfebb0d49'
 down_revision = 'e1e763cb595b'
 branch_labels = None
 depends_on = None
@@ -50,10 +50,10 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(timezone=True), server_default=sa.text('now()'), nullable=False),
     sa.Column('updated_at', sa.DateTime(timezone=True), nullable=True),
-    sa.Column('developer_id', sa.Integer(), nullable=True),
-    sa.Column('vacancy_id', sa.Integer(), nullable=True),
+    sa.Column('developer_id', sa.Integer(), nullable=False),
+    sa.Column('skill_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['developer_id'], ['developer.id'], ),
-    sa.ForeignKeyConstraint(['vacancy_id'], ['vacancy.id'], ),
+    sa.ForeignKeyConstraint(['skill_id'], ['skill.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

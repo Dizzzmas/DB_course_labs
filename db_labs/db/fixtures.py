@@ -81,6 +81,8 @@ class DeveloperFactory(SQLAFactory):
 
     skills = factory.List([factory.SubFactory(SkillFactory) for _ in range(2)])
 
+    birthdate = factory.LazyFunction(faker.past_date)
+
 
 class VacancyFactory(SQLAFactory):
     class Meta:
