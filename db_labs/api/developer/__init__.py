@@ -13,9 +13,8 @@ blp = Blueprint("Developer", __name__, url_prefix=f"/api/developer")
 @blp.route("", methods=["GET"])
 @blp.response(DeveloperSchema(many=True))
 @combined_search_by(
-        Developer.first_name, Developer.last_name, search_parameter_name="query",
+        Developer.first_name, Developer.last_name, Skill.name, search_parameter_name="query",
     )
-@searchable_by_skills(search_parameter_name="skills", list_separator=",")
 def get_developers():
     developers = (
         Developer.query.join(DeveloperSkill, isouter=True)

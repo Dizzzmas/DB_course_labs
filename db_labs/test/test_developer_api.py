@@ -43,6 +43,8 @@ def test_combined_search_on_developer(developer_factory, db_session, client):
 
     db_session.commit()
 
+    skill1 = developer1.skills[0]
+
     query_string = developer1.last_name
 
     # Test getting all entites in the result due to the combined search via `query_string`
@@ -55,5 +57,12 @@ def test_combined_search_on_developer(developer_factory, db_session, client):
     db_session.commit()
 
     response = client.get(f"/api/developer?query={query_string}")
+    assert response.status_code == 200
+    assert len(response.json) == 1
+
+    query_string = skill1.name
+
+    response = client.get(f"/api/developer?query={query_string}")  # Test searching by skill name
+
     assert response.status_code == 200
     assert len(response.json) == 1
