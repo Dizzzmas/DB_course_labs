@@ -8,7 +8,7 @@ APP_DEV_URL = "http://localhost:5000/api"
 
 @click.command()
 @click.option('--option', prompt='Your name',
-              help='Options: create\nupdate\nget')
+              help='Options: create_developer\nupdate_develiper\nsearch_developers')
 def main(option):
     if option == 'create_developer':
         email = click.prompt('Please enter an email', type=str)
@@ -29,7 +29,6 @@ def main(option):
         id = click.prompt('Please enter a developer id', type=int)
         email = click.prompt('Please enter an email', type=str)
         first_name = click.prompt('Please enter a first name', type=str)
-
 
         try:
             response = requests.patch(f"{APP_DEV_URL}/developer/{id}", json=dict(email=email, first_name=first_name))
@@ -59,6 +58,20 @@ def main(option):
         print(f"{len(response.json())} developers found for the keyword: {query_string}")
         return pprint(response.json())
 
+    if option == 'get_developers':
+        try:
+            response = requests.get(f"{APP_DEV_URL}/developer")
+        except Exception:
+            return print("An error occurred while trying to reach the API.")
+
+        if response.status_code != 200:
+            return print("An error occurred during the API request.")
+
+        if not response.json():
+            return print(f"No results found")
+
+        print(f"{len(response.json())} developers fetched")
+        return pprint(response.json())
 
 
 if __name__ == '__main__':
