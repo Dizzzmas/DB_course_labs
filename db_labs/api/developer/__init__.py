@@ -38,6 +38,7 @@ def get_developers():
 @blp.response(DeveloperSchema)
 @blp.arguments(DeveloperSchema)
 def create_developer(args: Dict[str, str]):
+    """Create a developer entry."""
     developer = handle_creating_developer(args)
 
     return developer
