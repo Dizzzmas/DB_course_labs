@@ -1,5 +1,8 @@
 # Quickstart:
 
+## Labs:
+### Lab1: https://github.com/Dizzzmas/DB_course_labs/tree/lab1
+### Lab2: https://github.com/Dizzzmas/DB_course_labs/tree/lab2
 ### Prerequisites:
 
 ```
