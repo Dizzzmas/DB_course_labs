@@ -8,6 +8,14 @@
 
 ![](lab_reports/db_schema.png)
 
+### CLI commands(lab2 specific):
+Get developers - `python3 db_labs/cli/__init__.py --option get_developers`
+
+Search for developers - `python3 db_labs/cli/__init__.py --option search_developers`
+
+Create developer - `python3 db_labs/cli/__init__.py --option create_developer`
+
+Update developer by id - ` python3 db_labs/cli/__init__.py --option update_developer `
 ### Prerequisites:
 
 ```
