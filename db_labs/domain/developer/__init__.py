@@ -1,6 +1,9 @@
 from typing import Dict, Union
 from flask_smorest import abort
+from sqlalchemy.orm import joinedload
+
 from db_labs.db import db
+from db_labs.model import Developer, DeveloperSkill, Skill
 
 
 def handle_getting_and_searching_for_developers(query_string: str):
@@ -8,20 +11,18 @@ def handle_getting_and_searching_for_developers(query_string: str):
     if query_string:
         query_string = f"%{query_string}%"  # Enclosed in '%' as per ILIKE syntax
 
-        query = """SELECT * 
-FROM developer LEFT OUTER JOIN developer_skill ON developer.id = developer_skill.developer_id LEFT OUTER JOIN skill ON skill.id = developer_skill.skill_id LEFT OUTER JOIN vacancy AS vacancy_1 ON vacancy_1.id = developer.vacancy_id LEFT OUTER JOIN (developer_skill AS developer_skill_1 JOIN skill AS skill_1 ON skill_1.id = developer_skill_1.skill_id) ON developer.id = developer_skill_1.developer_id 
-WHERE CAST(developer.first_name AS VARCHAR) ILIKE :query_string ESCAPE '~' OR CAST(developer.last_name AS VARCHAR) ILIKE :query_string ESCAPE '~' OR CAST(skill.name AS VARCHAR) ILIKE :query_string ESCAPE '~' LIMIT 50"""
+        # Query for search
+        # UNION needed here to speed up ILIKE across 2 tables. SELECT * also fetches vacancy and skills that were JOINed. We don't process and output them however.
+        query = """SELECT *
+FROM developer LEFT OUTER JOIN developer_skill ON developer.id = developer_skill.developer_id LEFT OUTER JOIN skill ON skill.id = developer_skill.skill_id LEFT OUTER JOIN vacancy AS vacancy_1 ON vacancy_1.id = developer.vacancy_id LEFT OUTER JOIN (developer_skill AS developer_skill_1 JOIN skill AS skill_1 ON skill_1.id = developer_skill_1.skill_id) ON developer.id = developer_skill_1.developer_id
+WHERE CAST(developer.first_name AS VARCHAR) ILIKE :query_string ESCAPE '~' OR CAST(developer.last_name AS VARCHAR) ILIKE :query_string ESCAPE '~' UNION SELECT  *
+FROM developer LEFT OUTER JOIN developer_skill ON developer.id = developer_skill.developer_id LEFT OUTER JOIN skill ON skill.id = developer_skill.skill_id LEFT OUTER JOIN vacancy AS vacancy_1 ON vacancy_1.id = developer.vacancy_id LEFT OUTER JOIN (developer_skill AS developer_skill_1 JOIN skill AS skill_1 ON skill_1.id = developer_skill_1.skill_id) ON developer.id = developer_skill_1.developer_id
+WHERE CAST(skill.name AS VARCHAR) ILIKE :query_string ESCAPE '~' LIMIT 50;"""
 
         developers = db.session.execute(query, dict(query_string=query_string))
     else:
-        query = """SELECT * FROM developer LEFT OUTER JOIN developer_skill ON developer.id = developer_skill.developer_id LEFT OUTER JOIN skill ON skill.id = developer_skill.skill_id LEFT OUTER JOIN vacancy AS vacancy_1 ON vacancy_1.id = developer.vacancy_id LEFT OUTER JOIN (developer_skill AS developer_skill_1 JOIN skill AS skill_1 ON skill_1.id = developer_skill_1.skill_id) ON developer.id = developer_skill_1.developer_id LIMIT 50"""
+        query = """SELECT * FROM developer LIMIT 50;"""
         developers = db.session.execute(query)
-
-    # developers = (  # ORM only
-    #     Developer.query.join(DeveloperSkill, isouter=True)
-    #     .join(Skill, isouter=True)
-    #     .options(joinedload(Developer.skills), joinedload(Developer.vacancy))
-    # )
 
     return developers
 
@@ -66,3 +67,5 @@ def handle_updating_developer(args: Dict[str, Union[str, int]], developer_id: in
 
     if not developer:
         abort(404, message=f"No developer with id: ${developer_id} found.")
+
+    return developer
