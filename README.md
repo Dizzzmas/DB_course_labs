@@ -1,7 +1,15 @@
-# Quickstart:
+# Lab 1:
 
-### Prerequisites:
+## Variant 22:
+### Report: [БД_КП81_ЛР1_Янковський_Дмитро.pdf](lab_reports/БД_КП81_ЛР1_Янковський_Дмитро.pdf)
+### Screenshots:
+![](lab_reports/db_schema.png)
 
+![](lab_reports/sample_developers_data.png)
+
+![](lab_reports/sample_developer_skill_data.png)
+
+## Quickstart
 ```
 curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python  # poetry
 ```
