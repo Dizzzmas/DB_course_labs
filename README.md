@@ -1,4 +1,16 @@
-# Quickstart:
+# Lab 2:
+
+## Variant 22:
+
+### Report: [БД_КП81_ЛР2_Янковський_Дмитро.pdf](lab_reports/БД_КП81_ЛР2_Янковський_Дмитро.pdf)
+
+### Screenshots:
+
+![](lab_reports/db_schema.png)
+
+![](lab_reports/sample_developers_data.png)
+
+![](lab_reports/sample_developer_skill_data.png)
 
 ### Prerequisites:
 
