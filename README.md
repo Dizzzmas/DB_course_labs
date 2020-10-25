@@ -8,10 +8,6 @@
 
 ![](lab_reports/db_schema.png)
 
-![](lab_reports/sample_developers_data.png)
-
-![](lab_reports/sample_developer_skill_data.png)
-
 ### Prerequisites:
 
 ```
