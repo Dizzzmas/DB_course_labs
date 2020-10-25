@@ -1,5 +1,7 @@
 def test_creating_developer(client):
-    developer = dict(first_name="Dmytro", last_name="Yankovskyi", email="test@gmail.com")
+    developer = dict(
+        first_name="Dmytro", last_name="Yankovskyi", email="test@gmail.com"
+    )
 
     response = client.post("/api/developer", json=developer)
 
@@ -12,25 +14,31 @@ def test_creating_developer(client):
 
 
 def test_updating_developer(developer_factory, db_session, client):
-    developer = developer_factory(first_name="Dmytro", last_name="Yankovskyi", email="test@gmail.com")
+    developer = developer_factory(
+        first_name="Dmytro", last_name="Yankovskyi", email="test@gmail.com"
+    )
     db_session.add(developer)
     db_session.commit()
 
     updated_first_name = "Testerino"
 
-    response = client.patch(f"/api/developer/{developer.id}", json=dict(first_name=updated_first_name))
+    response = client.patch(
+        f"/api/developer/{developer.id}", json=dict(first_name=updated_first_name)
+    )
 
     assert response.status_code == 200
 
-    assert response.json['first_name'] == updated_first_name
-    assert response.json['last_name']
-    assert response.json['email']
-    assert response.json['birthdate']
-
+    assert response.json["first_name"] == updated_first_name
+    assert response.json["last_name"]
+    assert response.json["email"]
+    assert response.json["birthdate"]
 
     non_existant_developer_id = 9000
 
-    response = client.patch(f"/api/developer/{non_existant_developer_id}", json=dict(first_name=updated_first_name))
+    response = client.patch(
+        f"/api/developer/{non_existant_developer_id}",
+        json=dict(first_name=updated_first_name),
+    )
 
     assert response.status_code == 404
 
@@ -53,7 +61,9 @@ def test_combined_search_on_developer(developer_factory, db_session, client):
     assert response.status_code == 200
     assert len(response.json) == 2
 
-    developer2.first_name = query_string[::-1]   # Change last name to a different one so we can see the entry not included into the result
+    developer2.first_name = query_string[
+        ::-1
+    ]  # Change last name to a different one so we can see the entry not included into the result
     db_session.commit()
 
     response = client.get(f"/api/developer?query={query_string}")
@@ -62,7 +72,9 @@ def test_combined_search_on_developer(developer_factory, db_session, client):
 
     query_string = skill1.name
 
-    response = client.get(f"/api/developer?query={query_string}")  # Test searching by skill name
+    response = client.get(
+        f"/api/developer?query={query_string}"
+    )  # Test searching by skill name
 
     assert response.status_code == 200
     assert len(response.json) == 1

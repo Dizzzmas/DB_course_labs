@@ -1,78 +1,59 @@
 from pprint import pprint
-
 import click
-import requests
+from db_labs.domain.cli import (
+    handle_creating_developer,
+    handle_updating_developer,
+    handle_searching_for_developers,
+    handle_getting_developers,
+)
 
 APP_DEV_URL = "http://localhost:5000/api"
 
 
 @click.command()
-@click.option('--option', prompt='Your name',
-              help='Options: create_developer\nupdate_develiper\nsearch_developers')
+@click.option(
+    "--option",
+    prompt="Your name",
+    help="Options: create_developer\nupdate_develiper\nsearch_developers",
+)
 def main(option):
-    if option == 'create_developer':
-        email = click.prompt('Please enter an email', type=str)
-        first_name = click.prompt('Please enter a first name', type=str)
+    if option == "create_developer":
+        email = click.prompt("Please enter an email", type=str)
+        first_name = click.prompt("Please enter a first name", type=str)
 
-        try:
-            response = requests.post(f"{APP_DEV_URL}/developer", json=dict(email=email, first_name=first_name))
-        except Exception:
-            return print("An error occurred while trying to reach the API.")
-
-        if response.status_code != 200:
-            return print("An error occurred during the API request.")
+        response = handle_creating_developer(email, first_name)
 
         print("New developer created.")
         return pprint(response.json())
 
-    if option == 'update_developer':
-        id = click.prompt('Please enter a developer id', type=int)
-        email = click.prompt('Please enter an email', type=str)
-        first_name = click.prompt('Please enter a first name', type=str)
+    if option == "update_developer":
+        developer_id = click.prompt("Please enter a developer id", type=int)
+        email = click.prompt("Please enter an email", type=str)
+        first_name = click.prompt("Please enter a first name", type=str)
 
-        try:
-            response = requests.patch(f"{APP_DEV_URL}/developer/{id}", json=dict(email=email, first_name=first_name))
-        except Exception:
-            return print("An error occurred while trying to reach the API.")
-
-        if response.status_code != 200:
-            return print("An error occurred during the API request.")
+        response = handle_updating_developer(developer_id, email, first_name)
 
         print(f"Developer with id: {id} was updated.")
         return pprint(response.json())
 
-    if option == 'search_developers':
-        query_string = click.prompt('Please enter a search keyword(first/last name or skill name)', type=str)
+    if option == "search_developers":
+        query_string = click.prompt(
+            "Please enter a search keyword(first/last name or skill name)", type=str
+        )
 
-        try:
-            response = requests.get(f"{APP_DEV_URL}/developer?query={query_string}")
-        except Exception:
-            return print("An error occurred while trying to reach the API.")
+        response = handle_searching_for_developers(query_string)
 
-        if response.status_code != 200:
-            return print("An error occurred during the API request.")
-
-        if not response.json():
-            return print(f"No results found for the keyword: {query_string}")
-
-        print(f"{len(response.json())} developers found for the keyword: {query_string}")
+        print(
+            f"{len(response.json())} developers found for the keyword: {query_string}"
+        )
         return pprint(response.json())
 
-    if option == 'get_developers':
-        try:
-            response = requests.get(f"{APP_DEV_URL}/developer")
-        except Exception:
-            return print("An error occurred while trying to reach the API.")
-
-        if response.status_code != 200:
-            return print("An error occurred during the API request.")
-
-        if not response.json():
-            return print(f"No results found")
+    if option == "get_developers":
+        response = handle_getting_developers()
 
         print(f"{len(response.json())} developers fetched")
         return pprint(response.json())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
