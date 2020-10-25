@@ -33,7 +33,7 @@ def main(option):
 
         response = handle_updating_developer(developer_id, email, first_name)
 
-        print(f"Developer with id: {id} was updated.")
+        print(f"Developer with id: {developer_id} was updated.")
         return pprint(response.json())
 
     if option == "search_developers":
