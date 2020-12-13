@@ -15,7 +15,7 @@ Search for developers - `python3 db_labs/cli/__init__.py --option search_develop
 
 Create developer - `python3 db_labs/cli/__init__.py --option create_developer`
 
-Update developer by id - ` python3 db_labs/cli/__init__.py --option update_developer `
+Update developer by id - `python3 db_labs/cli/__init__.py --option update_developer `
 ### Prerequisites:
 
 ```
