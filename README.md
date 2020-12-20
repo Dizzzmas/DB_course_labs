@@ -9,6 +9,8 @@
 ### ORM models and API
 SQLAlchemy model classes are located in`db_labs/model/`
 
+ORM queries are done within the `api` module `db_labs/api`
+
 Run `make run` to spin up the Flask REST API
 
 Requests can be made via Paw  # see `db_labs.paw`
