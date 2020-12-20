@@ -13,8 +13,5 @@ class DeveloperSkill(db.Model):
     )
 
     idx_unique_developer_skill = Index(
-        "unique_developer_id_skill_id_idx",
-        developer_id,
-        skill_id,
-        unique=True,
+        "unique_developer_id_skill_id_idx", developer_id, skill_id, unique=True,
     )

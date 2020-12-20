@@ -1,4 +1,4 @@
-from typing import Dict, Union
+from typing import Dict, Union, List
 from flask_smorest import abort
 from sqlalchemy.orm import joinedload
 
@@ -6,7 +6,7 @@ from db_labs.db import db
 from db_labs.model import Developer, DeveloperSkill, Skill
 
 
-def handle_getting_and_searching_for_developers(query_string: str):
+def handle_getting_and_searching_for_developers(query_string: str) -> List[Developer]:
     """Get all developers(limit is 50 per query) or search for specific developers by first_name,last_name or skill_name."""
     if query_string:
         query_string = f"%{query_string}%"  # Enclosed in '%' as per ILIKE syntax

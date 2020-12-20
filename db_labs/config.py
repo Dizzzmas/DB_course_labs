@@ -30,7 +30,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # set SQL_ECHO=1 this to echo queries to stderr
-    SQLALCHEMY_ECHO = bool(os.getenv("SQL_ECHO"))
+    SQLALCHEMY_ECHO = 1
     DEBUG = os.getenv("DEBUG", False)
     TESTING = bool(os.getenv("TESTING"))
     XRAY = bool(os.getenv("XRAY"))

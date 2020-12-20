@@ -8,11 +8,12 @@ class Skill(db.Model, TrgmExtension):
 
     developers = db.relationship("Developer", secondary="developer_skill")
 
-    skill_name_trgm_idx = Index('skill_name_trgm_idx',
-          name, postgresql_using='gin',
-          postgresql_ops={
-              'name': 'gin_trgm_ops',
-          })
+    skill_name_trgm_idx = Index(
+        "skill_name_trgm_idx",
+        name,
+        postgresql_using="gin",
+        postgresql_ops={"name": "gin_trgm_ops",},
+    )
 
 
 Skill.add_create_trgm_extension_trigger()

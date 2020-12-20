@@ -1,3 +1,6 @@
+from db_labs.model import Developer
+
+
 def test_creating_developer(client):
     developer = dict(
         first_name="Dmytro", last_name="Yankovskyi", email="test@gmail.com"
@@ -55,8 +58,8 @@ def test_combined_search_on_developer(developer_factory, db_session, client):
 
     query_string = developer1.last_name
 
-    # Test getting all entites in the result due to the combined search via `query_string`
-    response = client.get(f"/api/developer?query={query_string}")
+    # Test getting all entities in the result due to the combined search via `query_string`
+    response = client.get(f"/api/developer?search={query_string}")
 
     assert response.status_code == 200
     assert len(response.json) == 2
@@ -66,15 +69,27 @@ def test_combined_search_on_developer(developer_factory, db_session, client):
     ]  # Change last name to a different one so we can see the entry not included into the result
     db_session.commit()
 
-    response = client.get(f"/api/developer?query={query_string}")
+    response = client.get(f"/api/developer?search={query_string}")
     assert response.status_code == 200
     assert len(response.json) == 1
 
     query_string = skill1.name
 
     response = client.get(
-        f"/api/developer?query={query_string}"
+        f"/api/developer?search={query_string}"
     )  # Test searching by skill name
 
     assert response.status_code == 200
     assert len(response.json) == 1
+
+
+def test_deleting_developer(db_session, client, developer_factory):
+    developer1 = developer_factory()
+    db_session.add(developer1)
+    db_session.commit()
+
+    assert Developer.query.count() == 1
+
+    client.delete(f"/api/developer/{developer1.id}")
+
+    assert Developer.query.count() == 0

@@ -4,9 +4,9 @@ api = Api()
 
 
 def init_views():
-    from . import monitor, auth, developer
+    from . import monitor, auth, developer, vacancy
 
-    apis = (monitor, auth, developer)
+    apis = (monitor, auth, developer, vacancy)
 
     # get exported "blp" blueprint objects
     for blp in (a.blp for a in apis):
