@@ -1,8 +1,6 @@
-# Lab 2:
+# Lab 3:
 
-## Variant 22:
-
-### Report: [БД_КП81_ЛР2_Янковський_Дмитро.pdf](lab_reports/БД_КП81_ЛР2_Янковський_Дмитро.pdf)
+## Variant 23:
 
 ### Screenshots:
 
