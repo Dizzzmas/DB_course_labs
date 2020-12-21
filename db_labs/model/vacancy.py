@@ -10,17 +10,18 @@ class Vacancy(db.Model):
 
     developers = db.relationship("Developer", back_populates="vacancy")
 
-
+# When a vacancy entry is updated, update recruitment_status on all developers related to it to be "in_progress". In case the vacancy is deleted, mark all devs as "rejected"
 on_table_create(Vacancy,
     DDL(
        """
        DROP FUNCTION IF EXISTS update_developers_on_vacancy_update_or_delete() CASCADE;
         CREATE FUNCTION update_developers_on_vacancy_update_or_delete() RETURNS trigger AS $$
         BEGIN
-            IF NOT OLD THEN
+            IF NEW.id THEN
                 UPDATE developer set recruitment_status = 'in_progress' where vacancy_id = NEW.id;
             ELSE
                 UPDATE developer set recruitment_status = 'rejected' where vacancy_id = OLD.id;
+                DELETE FROM vacancy where id = OLD.id;
             END IF;
             RETURN NEW;
         END;

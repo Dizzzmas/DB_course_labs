@@ -2,6 +2,8 @@
 
 ## Variant 23:
 
+### Report: [БД_КП81_ЛР3_Янковський_Дмитро.pdf](lab_reports/БД_КП81_ЛР3_Янковський_Дмитро.pdf)
+
 ### Screenshots:
 
 ![](lab_reports/db_schema.png)
