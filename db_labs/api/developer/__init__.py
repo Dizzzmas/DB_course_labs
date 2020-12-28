@@ -13,7 +13,7 @@ blp = Blueprint("Developer", __name__, url_prefix=f"/api/developer")
 
 @blp.route("", methods=["GET"])
 @blp.response(DeveloperSchema(many=True))
-@blp.paginate(CursorPage)  # - it's slow here
+@blp.paginate(CursorPage)
 @combined_search_by(
     Developer.first_name, Developer.last_name
 )
